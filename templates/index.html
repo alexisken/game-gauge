@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+    <table style="width:80%" border="1">
+      <tr>
+        <th>Game</th>
+        <th>Progress</th>
+        <th>Playtime</th>
+      </tr>
+
+      {% for game in game_list %}
+      <tr>
+        <td>{{ game['name'] }}</td>
+        <td>{{ game['completion'] }}</td>
+        <td>{{ game['playtime'] }}</td>
+      </tr>
+
+      {% endfor %}
+
+    </table>
+
+{% endblock %}
