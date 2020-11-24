@@ -102,11 +102,50 @@ def input():
     return render_template("input.html")
 
 
-@app.route("/manage")
+@app.route("/manage", methods=["GET", "POST"])
 def manage():
     """Manage games & progress previously input into system"""
 
-    return render_template("manage.html")
+    # User reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        game = request.form.get("game")
+        completion = int(request.form.get("Completion"))
+        minutes = request.form.get("minutes")
+        if minutes:
+            minutes = int(minutes)
+        hours = request.form.get("hours")
+        if hours:
+            hours = int(hours)
+        seconds = 0
+
+        if minutes:
+            seconds = seconds + (minutes * 60)
+        if hours:
+            seconds = seconds + (hours * 60 * 60)
+
+        time_played_prior = db.execute("SELECT playtime FROM games WHERE game_title = :game", game=game)
+
+        if time_played_prior[0]['playtime']:
+            h, m, s = (time_played_prior[0]['playtime']).split(':')
+            seconds_played_prior = int(h) * 3600 + int(m) * 60 + int(s)
+            seconds_played = seconds + seconds_played_prior
+        else:
+            seconds_played = seconds
+
+        playtime = time.strftime('%H:%M:%S', time.gmtime(seconds_played))
+
+        shares_owned = db.execute("UPDATE games SET playtime = :playtime, complete = :completion WHERE game_title = :game",
+                          playtime=playtime, completion=completion, game=game)
+
+        return redirect("/")
+
+
+    game_list = db.execute("SELECT * FROM games")
+    game_list_sorted = sorted(game_list, key = lambda i: (i['game_title']))
+
+    return render_template("manage.html", game_list=game_list_sorted)
+
 
 
 def errorhandler(e):
