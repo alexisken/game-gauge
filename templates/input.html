@@ -5,13 +5,41 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/buy" method="post">
+    <form action="/input" method="post">
         <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Stock Ticker" type="text">
+            <input autocomplete="off" autofocus class="form-control" name="Game" placeholder="Game" type="text">
+        </div>
+
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="Publisher" placeholder="Publisher" type="text">
+        </div>
+
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="Developer" placeholder="Developer" type="text">
+        </div>
+
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="Platform" placeholder="Platform" type="text">
+        </div>
+
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="Release-date" placeholder="Release Date" type="date">
+        </div></br>
+
+
+        <div class="form-group">
+            <label></label><input value="true" type="radio" name="completion">
+            Complete</label><br>
+            <label></label><input value="false" type="radio" name="completion">
+            Not Complete</label><br></br>
         </div>
         <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="shares" placeholder="# of shares to purchase" type="number">
+            <label for="playtime">Playtime</label></br>
+            <input autocomplete="off" autofocus class="form-control" name="Hours" placeholder="Hours" type="number"></br>
+            <input autocomplete="off" autofocus class="form-control" name="Minutes" placeholder="Minutes" type="number">
         </div>
-        <button class="btn btn-primary" type="submit">Buy shares</button>
+        <br>
+
+        <button class="btn btn-primary" type="submit">Save game</button>
     </form>
 {% endblock %}

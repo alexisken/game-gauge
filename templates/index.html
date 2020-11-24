@@ -6,17 +6,17 @@
 
 {% block main %}
 
-    <table style="width:80%" border="1">
+    <table class="custom-table">
       <tr>
         <th>Game</th>
-        <th>Progress</th>
+        <th>Completed?</th>
         <th>Playtime</th>
       </tr>
 
       {% for game in game_list %}
       <tr>
-        <td>{{ game['name'] }}</td>
-        <td>{{ game['completion'] }}</td>
+        <td>{{ game['game_title'] }}</td>
+        <td>{{ game['complete'] }}</td>
         <td>{{ game['playtime'] }}</td>
       </tr>
 
