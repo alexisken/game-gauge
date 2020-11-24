@@ -16,7 +16,17 @@
       {% for game in game_list %}
       <tr>
         <td>{{ game['game_title'] }}</td>
-        <td>{{ game['complete'] }}</td>
+
+        {% if game['complete'] == 1 %}
+
+        <td>Yes</td>
+
+        {% else %}
+
+        <td>No</td>
+
+        {% endif %}
+
         <td>{{ game['playtime'] }}</td>
       </tr>
 

@@ -44,10 +44,10 @@ def index():
         # 'game_title': 'The Last of Us',
         # 'release_date': '2013-06-14',
         # 'playtime': '16:20:00',
-        # 'complete': 'Y'
+        # 'complete': 1
     # }]
 
-    game_list_sorted = sorted(game_list, key = lambda i: (i['complete'], i['game_title']))
+    game_list_sorted = sorted(game_list, key = lambda i: (i['game_title']))
 
 
     return render_template("index.html", game_list=game_list_sorted)
@@ -65,10 +65,14 @@ def input():
         publisher = request.form.get("Publisher")
         developer = request.form.get("Developer")
         platform = request.form.get("Platform")
-        completion = request.form.get("Completion")
+        completion = int(request.form.get("Completion"))
         release = request.form.get("Release-date")
-        minutes = int(request.form.get("Minutes"))
-        hours = int(request.form.get("Hours"))
+        minutes = request.form.get("Minutes")
+        if minutes:
+            minutes = int(minutes)
+        hours = request.form.get("Hours")
+        if hours:
+            hours = int(hours)
         seconds = 0
 
         if minutes:
@@ -78,19 +82,19 @@ def input():
 
         playtime = time.strftime('%H:%M:%S', time.gmtime(seconds))
 
-        if not game:
-            return apology("please enter a game name", 403)
+        if not (game and publisher and developer and platform and completion and release and (minutes or hours)):
+            return apology("please fill out all information", 403)
 
 
             # Write new transaction to DB
-            db.execute("INSERT INTO games (game_title, release_date, playtime, complete, platform, publisher, developer) VALUES(:game, :release, :playtime, :completion, :platform, :publisher, :developer)",
-                game = game,
-                release = release,
-                playtime = playtime,
-                completion = completion,
-                platform = platform,
-                publisher = publisher,
-                developer = developer)
+        db.execute("INSERT INTO games (game_title, release_date, playtime, complete, platform, publisher, developer) VALUES(:game, :release, :playtime, :completion, :platform, :publisher, :developer)",
+            game = game,
+            release = release,
+            playtime = playtime,
+            completion = completion,
+            platform = platform,
+            publisher = publisher,
+            developer = developer)
 
         return redirect("/")
 
