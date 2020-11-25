@@ -85,7 +85,7 @@ def input():
 
         playtime = time.strftime('%H:%M:%S', time.gmtime(seconds))
 
-        if not (game and publisher and developer and platform and completion and release and (minutes or hours)):
+        if not (game and publisher and developer and platform and release):
             return apology("please fill out all information", 403)
 
 
