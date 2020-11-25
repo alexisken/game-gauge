@@ -9,6 +9,7 @@
     <table class="custom-table">
       <tr>
         <th>Game</th>
+        <th>Platform</th>
         <th>Completed?</th>
         <th>Playtime</th>
       </tr>
@@ -16,6 +17,7 @@
       {% for game in game_list %}
       <tr>
         <td>{{ game['game_title'] }}</td>
+        <td>{{ game['platform'] }}</td>
 
         {% if game['complete'] == 1 %}
 

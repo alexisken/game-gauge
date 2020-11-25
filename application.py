@@ -1,3 +1,6 @@
+# Alex Isken - November 2020
+# Based largely on CS50X Finance homework
+
 import os
 
 from cs50 import SQL
